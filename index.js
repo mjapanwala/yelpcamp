@@ -6,9 +6,11 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require("bcrypt");
 const userrouter = require("./routes/user")
 
+
 app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
- 
+
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

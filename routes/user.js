@@ -1,11 +1,9 @@
 const express = require("express")
 const router = express.Router()
+const users = require("../controllers/User")
 
+router.get('/', users.findAll)
 
-
-router.get('/', (req, res) => {
-    res.send("Hello this is the login  page")
-})
 router.get('/two', (req, res) => {
     res.send("Hello this is the two login page")
 })
