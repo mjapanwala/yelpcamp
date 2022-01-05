@@ -3,9 +3,12 @@ const connection = require("../database");
 
 
     async function findAll (req, res)  {
+        let allProperties;
         try {     
-        const getUsers = await User.find({})
-        res.render("../views/login", getUsers)
+        const getUsers = await User.find({});
+
+        res.render("../views/users", {getUsers})
+     
         }
         catch (e) {
             console.log(e)
@@ -21,7 +24,7 @@ const connection = require("../database");
                 password: req.body.password
             })
               await firstUser.save()
-              console.log(firstUser)
+            
         res.render("../views/users" ,{firstUser})
         }
         catch (e) {

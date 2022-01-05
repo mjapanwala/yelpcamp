@@ -9,9 +9,12 @@
 <body>
     <h1>These are all the users</h1>
     <ul>
-        <%= users.map((item) => { %>
-            <li><%= item.username%></li>
-        <%}) %>
+        <% for (items of getUsers) { %>
+            <li><%= items.username %></li>
+            <li><%= items.password %></li>
+            <li><%= items._id %></li>
+          <% }  %> 
     </ul>
+
 </body>
 </html>
