@@ -17,7 +17,7 @@ app.set("views", path.join(__dirname, "views"));
 
 
 
-app.use("/login", userrouter)
+app.use("/user", userrouter);
 
 
 

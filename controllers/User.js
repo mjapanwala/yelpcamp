@@ -1,21 +1,36 @@
-const User = require("../models/User")
-console.log(User)
+const User = require("../models/User");
+const connection = require("../database");
 
 
-module.exports = {
-    findAll: async(req, res) => {
-        try {
-        const firstUser = await User.insert({
-            username: "joejoe",
-            password: "fdsaf"
-        })
-        firstUser.save()
+    async function findAll (req, res)  {
+        try {     
         const getUsers = await User.find({})
-        console.log(firstUser, getUsers)
-        res.render("../views/home", getUsers)
+        res.render("../views/login", getUsers)
         }
         catch (e) {
-            throw Error("Didnt work")
+            console.log(e)
         }   
     }
-  }
+  
+
+  
+    async function postUser(req, res) {
+        try {
+            const firstUser = await User({
+                username: req.body.username,
+                password: req.body.password
+            })
+              await firstUser.save()
+              console.log(firstUser)
+        res.render("../views/users" ,{firstUser})
+        }
+        catch (e) {
+            console.log(e)
+        }   
+    }
+  
+    module.exports = {
+        findAll,
+        postUser
+    }
+
