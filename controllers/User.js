@@ -1,9 +1,9 @@
 const User = require("../models/User");
 const connection = require("../database");
+const { findByIdAndUpdate, findById } = require("../models/User");
 
 
     async function findAll (req, res)  {
-        let allProperties;
         try {     
         const getUsers = await User.find({});
 
@@ -31,9 +31,17 @@ const connection = require("../database");
             console.log(e)
         }   
     }
+
+async function findSpecificUser(req, res) {
+    const {id} = req.params;
+    const update = await User.findById(id);
+    res.render("../views/edit", {update, id});
+
+}
   
     module.exports = {
         findAll,
-        postUser
+        postUser,
+        findSpecificUser
     }
 
