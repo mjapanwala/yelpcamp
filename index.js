@@ -4,9 +4,13 @@ const app = express();
 const mongoose = require("mongoose")
 const cookieParser = require('cookie-parser');
 const bcrypt = require("bcrypt");
-const userrouter = require("./routes/user")
+const userrouter = require("./routes/user");
 
 
+const methodOverride = require("method-override");
+
+
+app.use(methodOverride('_method'));
 app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
 
@@ -19,7 +23,5 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use("/user", userrouter);
 
-
-
-
 app.listen(3000,() => console.log("You are listening to port 3000"))
+
