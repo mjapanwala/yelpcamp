@@ -16,8 +16,8 @@ const {hashpassword} = require("../password");
     }
   
     async function postUser(req, res) {
-        const hashedPassword = await hashpassword(req.body.password);
-        
+        const hashedPassword = await hashpassword(req.body.password, req.body.password);
+        res.redirect("/newuser")
         // try {
         //     const firstUser = await User({
         //         username: req.body.username,
@@ -51,7 +51,7 @@ async function deleteUser(req, res) {
 const {id} = req.params;
 const deleteId = await User.findByIdAndDelete(id);
 const find = findById(id);
-res.redirect("/newUser")
+res.redirect("/user/newUser")
 console.log(deleteId, find)
 }
 
