@@ -3,9 +3,8 @@ const path = require("path");
 const app = express();
 const mongoose = require("mongoose")
 const cookieParser = require('cookie-parser');
-const bcrypt = require("bcrypt");
 const userrouter = require("./routes/user");
-
+const hashpassword = require("./password")
 
 const methodOverride = require("method-override");
 

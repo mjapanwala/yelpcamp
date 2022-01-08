@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const connection = require("../database");
 const { findByIdAndUpdate, findById } = require("../models/User");
+const {hashpassword} = require("../password");
 
     async function findAll (req, res)  {
         try {     
@@ -15,18 +16,20 @@ const { findByIdAndUpdate, findById } = require("../models/User");
     }
   
     async function postUser(req, res) {
-        try {
-            const firstUser = await User({
-                username: req.body.username,
-                password: req.body.password
-            })
-              await firstUser.save()
+        const hashedPassword = await hashpassword(req.body.password);
+        
+        // try {
+        //     const firstUser = await User({
+        //         username: req.body.username,
+        //         password: req.body.password
+        //     })
+        //       await firstUser.save()
             
-        res.render("../views/users" ,{firstUser})
-        }
-        catch (e) {
-            console.log(e)
-        }   
+        // res.render("../views/login" ,{firstUser})
+        // }
+        // catch (e) {
+        //     console.log(e)
+        // }   
     }
 
 async function findSpecificUser(req, res) {
@@ -44,10 +47,19 @@ async function editUser(req, res) {
     res.render("../views/editedUser", {update});
 }
   
+async function deleteUser(req, res) {
+const {id} = req.params;
+const deleteId = await User.findByIdAndDelete(id);
+const find = findById(id);
+res.redirect("/newUser")
+console.log(deleteId, find)
+}
+
     module.exports = {
         findAll,
         postUser,
         findSpecificUser,
-        editUser
+        editUser,
+        deleteUser
     }
 
