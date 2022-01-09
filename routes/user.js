@@ -12,7 +12,9 @@ router.get("/newuser", users.findAll)
 router.get("/newuser/:id", users.findSpecificUser);
 router.put("/newuser/edit/:id", users.editUser);
 router.delete("/newuser/delete/:id", users.deleteUser);
-router.post("/newuser", users.postUser);
+router.post("/newuser", users.register);
+router.post("/login", users.login)
+router.get("/login", users.getlogin)
 
 
 module.exports = router;

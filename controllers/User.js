@@ -2,12 +2,24 @@ const User = require("../models/User");
 const connection = require("../database");
 const { findByIdAndUpdate, findById } = require("../models/User");
 const {hashpassword} = require("../password");
+const bcrypt = require("bcrypt")
 
     async function findAll (req, res)  {
         try {     
         const getUsers = await User.find({});
 
-        res.render("../views/users", {getUsers})
+        res.render("../views/register", {getUsers})
+     
+        }
+        catch (e) {
+            console.log(e)
+        }   
+    }
+    async function getlogin (req, res)  {
+        try {     
+        const getUsers = await User.find({});
+
+        res.render("../views/login", {getUsers})
      
         }
         catch (e) {
@@ -15,21 +27,28 @@ const {hashpassword} = require("../password");
         }   
     }
   
-    async function postUser(req, res) {
+    async function register(req, res) {
         const hashedPassword = await hashpassword(req.body.password, req.body.password);
-        res.redirect("/newuser")
-        // try {
-        //     const firstUser = await User({
-        //         username: req.body.username,
-        //         password: req.body.password
-        //     })
-        //       await firstUser.save()
-            
-        // res.render("../views/login" ,{firstUser})
-        // }
-        // catch (e) {
-        //     console.log(e)
-        // }   
+        res.redirect("/user/newuser") 
+    }
+
+    async function login(req, res) {
+       const {username, password} = req.body;
+    //    const allUsers = await User.find({})
+       const findUser = await User.findOne({username})
+       if (findUser) {
+       const compare = await bcrypt.compare(password,findUser.password);
+       compare? res.send("it exists") : res.send("it doesnt exist");
+       }
+       if (!findUser) {
+           res.send("User doesnt exist")
+       }
+       
+
+       
+      
+
+        // const compare = bcrypt.compare()
     }
 
 async function findSpecificUser(req, res) {
@@ -57,9 +76,11 @@ console.log(deleteId, find)
 
     module.exports = {
         findAll,
-        postUser,
+        login,
+        register,
         findSpecificUser,
         editUser,
-        deleteUser
+        deleteUser,
+        getlogin
     }
 
