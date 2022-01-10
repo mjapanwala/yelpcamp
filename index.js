@@ -4,15 +4,17 @@ const app = express();
 const mongoose = require("mongoose")
 const cookieParser = require('cookie-parser');
 const userrouter = require("./routes/user");
-const hashpassword = require("./password")
-
+const hashpassword = require("./password");
+const session = require("express-session")
+const flash = require("connect-flash")
 const methodOverride = require("method-override");
 
 
 app.use(methodOverride('_method'));
 app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
-
+app.use(flash())
+app.use(session({secret: "greatSecret"}))
 
 
 app.set("view engine", "ejs");

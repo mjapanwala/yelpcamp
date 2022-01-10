@@ -8,15 +8,6 @@
 </head>
 <body>
     <h1>These are all the users</h1>
-    <ul>
-        <% for (items of getUsers) { %>
-            <li><%= items.username %></li>
-            <li><%= items.password %></li>
-            <a><%=items._id%></a>
-            <li><a href="/user/newuser/<%=items._id%>">Edit</a></li>
-            <li><a href="user/newuser/delete/<%items._id%>">Delete</a></li>
-          <% }  %> 
-    </ul>
     <h1>Create a User</h1>
     <form method="POST" action="/user/newUser">
         <input name="username" placeholder="Username" type="text">

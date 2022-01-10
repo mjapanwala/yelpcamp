@@ -4,10 +4,11 @@ const User = require("../yelpcamp/models/User")
 
 const hashpassword = async (passwordtext="s", username) => {
     const salt =  await bcrypt.genSalt(11);
-    const hashed = await bcrypt.hash(passwordtext,salt)
-   if (hashed) {
-       login(passwordtext,hashed, username)
-   }
+    const hashed = await bcrypt.hash(passwordtext,salt);
+    return hashed;
+//    if (hashed) {
+//        login(passwordtext,hashed, username)
+//    }
 }
 const login = async (passwordtext="s", hash, username) => {
     console.log(passwordtext, hash)
