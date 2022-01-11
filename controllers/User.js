@@ -15,7 +15,7 @@ const flash = (require("flash")())
     // }
 
     async function greet(req,res) {
-        res.render("../views/welcome", {messages: req.flash("success")})
+        res.render("../views/welcome")
     }
 
     async function registering (req, res) {
