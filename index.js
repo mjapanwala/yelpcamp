@@ -19,7 +19,8 @@ app.use(session({secret: "greatSecret"}))
 // app.use(morgan("tiny"));
 
 app.use((req, res, next) => {
-    console.log(req.method, req.path);
+    req.time = Date.now()
+    console.log(req)
     next()
 })
 
@@ -34,6 +35,7 @@ app.set("views", path.join(__dirname, "views"));
 
 
 app.use("/user", userrouter);
+
 
 app.listen(3000,() => console.log("You are listening to port 3000"))
 

@@ -3,7 +3,9 @@ const connection = require("../database");
 const { findByIdAndUpdate, findById } = require("../models/User");
 const {hashpassword} = require("../password");
 const bcrypt = require("bcrypt");
-const session = require("express-session")
+const session = require("express-session");
+const router = require("../routes/user");
+const { append } = require("vary");
 const flash = (require("flash")())
 // const session = require("express-session")
 
@@ -14,11 +16,13 @@ const flash = (require("flash")())
     //     res.render("../views/login")
     // }
 
-    async function greet(req,res) {
+   
+
+     const greet = (req,res) => {
         res.render("../views/welcome")
     }
 
-    async function registering (req, res) {
+     function registering (req, res) {
         res.render("../views/register")
     }
 

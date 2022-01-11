@@ -10,7 +10,17 @@ app.use(methodOverride("_method"));
 
 // router.get("/newuser", users.findAll)
 // router.get("/newuser/:id", users.findSpecificUser);
-router.get("/welcome", users.greet)
+const verifyPassword = (req, res, next) => {
+    const {secrettoken} = req.query;
+    if (!secrettoken) {
+        res.status(400).send("NO TOKEN NO ENTER")
+    } else {
+        next()
+    }
+    
+}
+
+router.get("/welcome", verifyPassword, users.greet)
 router.get("/register", users.registering)
 
 // router.delete("/newuser/delete/:id", users.deleteUser);
