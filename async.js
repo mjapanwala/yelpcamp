@@ -34,7 +34,9 @@ setTimeout(() => {
     },{
         time: Date.now(),
         wednesday: "7 pm"
-    })
+    },
+    ["caramilks", "chocholate", "sundae"]
+    )
 }, 2000)
 }
 
@@ -43,8 +45,9 @@ const jimmy = loginUser("jimmy", (user) => {
     console.log(user.username);
     makeVideos(user.username, (moviesToMake, {name, author}) => {
         moviesToMake.forEach(number => console.log(number + " " + name + " " + author))
-        planDinner("jimmy", ({name},{time, wednesday}) => {
+        planDinner("jimmy", ({name},{time, wednesday},[caramilk, chocholate, sundae]) => {
             console.log(name,time, wednesday)
+            console.log(caramilk, chocholate,  sundae)
         })
     })
    
