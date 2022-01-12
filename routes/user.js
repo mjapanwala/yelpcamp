@@ -13,7 +13,7 @@ app.use(methodOverride("_method"));
 const verifyPassword = (req, res, next) => {
     const {secrettoken} = req.query;
     if (!secrettoken) {
-        res.status(400).send("NO TOKEN NO ENTER")
+        throw Error("NO TOKEN")
     } else {
         next()
     }
