@@ -1,4 +1,4 @@
-console.log("Let this go first");
+
 
 
 // setTimeout(() => {
@@ -49,8 +49,7 @@ const jimmy = loginUser("jimmy", (user) => {
             console.log(name,time, wednesday)
             console.log(caramilk, chocholate,  sundae)
         })
-    })
-   
+    })  
 })
 
 
