@@ -4,37 +4,62 @@ return new Promise((resolve, reject) => {
 resolve({
     username,
 })
-    }, 2000)
+    }, 1000)
 })
 }
 
 const makeVideos = name => {
 return new Promise((resolve, reject) => {
     setTimeout(() => {
+        if (!name) {
+            reject("No name")
+        }
         resolve([1,2,3,4,5, {
             name,
             author: "JK Rowling"
         }])
-    }, 1000)
+    }, 2000)
 })
 }
 const planDinner = name => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve({
-                name,  
-              },{
-                  time: Date.now(),
-                  wednesday: "7 pm"
-              },
-              ["caramilks", "chocholate", "sundae"]
-              )
+            resolve([
+                name,
+                {
+                    date: Date.now(),
+                    wednesday: "7pm"
+                },
+                1,
+                2,
+                7,
+                5
+
+            ])
         }, 8000)
     })
 }   
 
-Promise.all([loginUser("jimmy"), makeVideos("jimmy"), planDinner("jimmy")])
-.then(response => console.log(response));
+
+async function displayAll() {
+    try {
+
+    
+    const login = await loginUser("Jimmy")
+    console.log(login)
+    const videos = await makeVideos()
+    console.log(videos)
+    const plan = await planDinner(login.username)
+    console.log(plan);
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+displayAll()
+
+// Promise.all([loginUser("jimmy"), makeVideos("jimmy"), planDinner("jimmy")])
+// .then(response => console.log(response));
 
 // loginUser("Jimmy")
 // .then(username => makeVideos(username.username))
