@@ -15,7 +15,7 @@ return new Promise((resolve, reject) => {
             name,
             author: "JK Rowling"
         }])
-    }, 3000)
+    }, 1000)
 })
 }
 const planDinner = name => {
@@ -29,10 +29,14 @@ const planDinner = name => {
               },
               ["caramilks", "chocholate", "sundae"]
               )
-        }, 4000)
+        }, 8000)
     })
 }   
-loginUser("Jimmy")
-.then(username => makeVideos(username.username))
-.then(data => console.log(data[5].name))
-.catch(err => console.log(err))
+
+Promise.all([loginUser("jimmy"), makeVideos("jimmy"), planDinner("jimmy")])
+.then(response => console.log(response));
+
+// loginUser("Jimmy")
+// .then(username => makeVideos(username.username))
+// .then(data => console.log(data[5].name))
+// .catch(err => console.log(err))
