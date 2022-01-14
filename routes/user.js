@@ -5,31 +5,21 @@ const methodOverride = require("method-override")
 const {hashpassword} = require("../password")
 const app = express()
 
+app.use(express.urlencoded({extended:true}))
 
 app.use(methodOverride("_method"));
 
-// router.get("/newuser", users.findAll)
-// router.get("/newuser/:id", users.findSpecificUser);
-const verifyPassword = (req, res, next) => {
-    const {secrettoken} = req.query;
-    if (!secrettoken) {
-        throw Error("NO TOKEN")
-    } else {
-        next()
-    }
-    
-}
 
-router.get("/welcome", verifyPassword, users.greet)
-router.get("/register", users.registering)
+router.get("/newuser/:id", users.findSpecificUser);
 
-// router.delete("/newuser/delete/:id", users.deleteUser);
+
+router.delete("/newuser/delete/:id", users.deleteUser);
 
 
 router.post("/newuser", users.register);
-// router.post("/login", users.login)
+router.post("/login", users.login)
 
-// router.put("/newuser/edit/:id", users.editUser);
+router.put("/newuser/edit/:id", users.editUser);
 
 
 module.exports = router;

@@ -1,0 +1,10 @@
+WHAT IS JWT?
+JWT Essentially  is this
+1. When client creates a post request
+
+2. Server creates a JWT JSON WEB TOKEN and sends 
+it to the client
+
+3. The client then sends it to the server on 
+following requests so server knows
+what this client/person can/can't do 

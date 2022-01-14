@@ -15,20 +15,8 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
 app.use(flash())
 app.use(session({secret: "greatSecret"}))
+require('dotenv').config()
 
-// app.use(morgan("tiny"));
-
-app.use((req, res, next) => {
-    req.time = Date.now()
-    console.log(req)
-    next()
-})
-
-
-app.use((req, res, next) => {
-    res.locals.messages = req.flash("success");
-    next()
-})
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
