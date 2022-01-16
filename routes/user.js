@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const users = require("../controllers/User")
 const methodOverride = require("method-override")
-const {hashpassword} = require("../password")
+const {hashpassword} = require("../middleware/password")
 const app = express()
 
 app.use(express.urlencoded({extended:true}))

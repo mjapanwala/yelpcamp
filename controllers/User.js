@@ -1,50 +1,60 @@
 const User = require("../models/User");
 const connection = require("../database");
 const { findByIdAndUpdate, findById } = require("../models/User");
-const {hashpassword} = require("../password");
+const {hashpassword} = require("../middleware/password");
+const {verifyJWT, signJWT} = require("../middleware/jwt");
 const bcrypt = require("bcrypt");
-const session = require("express-session");
-const router = require("../routes/user");
 const { append } = require("vary");
 const flash = (require("flash")())
 const jwt = require('jsonwebtoken');
 
 
-    async function register(req, res, next) {
-        console.log(process.env.secret_key)
-    // const {username, password, email} = req.body;
-    // const payload = {
-    //     username,
-    //     password,
-    //     email
-    // }
-    // const privateKey = "hi"
-    //     const tokens = jwt.sign(payload, privateKey, { expiresIn: 3600}, (err, token) => {
-    //         res.json(token);
-    //     } )
-       
-        // console.log(tokens)
-        // const hashedPassword = await hashpassword(req.body.password, req.body.password);
-        // req.flash("success", "successfully made a new user")
-        // res.redirect("/user/welcome")
-         
-    }
 
-    async function getlogin (req, res)  {
-        
+    async function register(req, res, next) {
+    const {username, password, email} = req.body;
+    if (username && password && email) {
+        const hashedPassword = await hashpassword(password);
+        if (hashedPassword) {
+            
+            const registerUser = new User({
+                username,
+                password:hashedPassword,
+                email
+            })
+           await registerUser.save()
+           
+        const sign  = await signJWT(registerUser)
+        console.log(sign, "sign")
+        }
+    }     
     }
   
- 
-
     async function login(req, res) {
-       const {username, password} = req.body;
-    //    const allUsers = await User.find({})
+        const {username, password} = req.body;
+        const payload = {
+            username
+        }   
        const findUser = await User.findOne({username})
        if (findUser) {
        const compare = await bcrypt.compare(password,findUser.password);
-       console.log(compare)
+       if (compare) {
+           signJWT(payload);
+           
+       }
     }
     }
+
+    
+
+
+
+
+
+
+
+
+
+
 async function findSpecificUser(req, res) {
     const {id} = req.params;
     const update = await User.findById(id);
@@ -87,14 +97,10 @@ console.log(deleteId, find)
 
 
     module.exports = {
-        // findAll,
         login,
         register,
-        // registering,
         findSpecificUser,
         editUser,
         deleteUser,
-        getlogin,
-        // greet
     }
 
