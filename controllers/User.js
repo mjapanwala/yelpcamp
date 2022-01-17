@@ -14,34 +14,48 @@ const jwt = require('jsonwebtoken');
     const {username, password, email} = req.body;
     if (username && password && email) {
         const hashedPassword = await hashpassword(password);
-        if (hashedPassword) {
-            
-            const registerUser = new User({
+        if (hashedPassword) {    
+             registerUser = new User({
                 username,
                 password:hashedPassword,
                 email
             })
-           await registerUser.save()
-           
-        const sign  = await signJWT(registerUser)
-        console.log(sign, "sign")
+        await registerUser.save()
+            const payload = {
+                user: {
+                    id: registerUser.id
+                }
+            }
+        const sign = await signJWT(payload); 
         }
-    }     
+        
     }
+        async function signJWT(payloads) {
+            try {
+                return jwt.sign(payloads, process.env.secret_key, { expiresIn: 36000});
+            }
+            catch(err) {
+                console.log(err)
+            }
+        }
+        }
+
+    
+    
   
     async function login(req, res) {
-        const {username, password} = req.body;
-        const payload = {
-            username
-        }   
+        const {username, password} = req.body;  
        const findUser = await User.findOne({username})
        if (findUser) {
        const compare = await bcrypt.compare(password,findUser.password);
        if (compare) {
-           signJWT(payload);
-           
-       }
+           res.send("Congrats login!")
+       } 
+    //    if (compare) {
+    //        signJWT(payload); 
+    //    }
     }
+    res.send("you dont have an account")
     }
 
     

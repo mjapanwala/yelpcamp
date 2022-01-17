@@ -1,36 +1,22 @@
 const jwt = require('jsonwebtoken')
 
-
-const signJWT = async (payload) => {
-    const {username, password, _id} = payload;
-    const payloads = {
-        username,
-        password,
-        _id
-    }
-    const payloadss = {
-        user: payloads._id
+const verifyJWT = (req, res, next) => {
+    const token = req.header('x-auth-token')
+    // if no token
+    if (!token) {
+        return res.status(401).json({msg: "no token found"})
     }
     try {
-        jwt.sign(payloadss, process.env.secret_key, { expiresIn: 36000}, (err, token) => {
-            if (err) {
-                console.log(err, "err")
-            } else {
-                return token
-            }
-         }) 
+        const decoded = jwt.verify(token, process.env.secret_key);
+        req.user = decoded.id;
+        next()
+        
+    }catch(err) {
+        res.status(401).json({msg: "Token is not valid"})
     }
-    catch(err) {
-        console.log(err)
-    }
-}
-
-const verifyJWT = () => {
-
 }
 
 module.exports = {
-    signJWT,
     verifyJWT
 }
 
