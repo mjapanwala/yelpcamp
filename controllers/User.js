@@ -44,25 +44,32 @@ const jwt = require('jsonwebtoken');
     
     
   
-    async function login(req, res) {
-        const rejection = res.status(401).json({msg: "Invalid Credentials"})
-        const {username, password} = req.body;  
-       const findUser = await User.findOne({username})
+    async function login(req, res) { 
+       const {username, password} = req.body;  
+       const findUser = await User.findOne({username});
        if (!findUser) {
-           return rejection
+           return res.status(401).json({msg: "Invalid Credentials"})
        }
        if (findUser) {
            const compare = await bcrypt.compare(password, findUser.password);
            if (!compare) {
-               return rejection
+               return res.status(401).json({msg: "Invalid Credentials"})
            }
        }
-    //    const payload = {
-    //        user: decoded.id
-    //    }
-       console.log(req.user)
-    // jwt.sign(payload, process.env.secret_key)
-    // res.send("you dont have an account")
+       const payload = {
+           user: findUser.id
+       }
+       try {
+        const sign = await jwt.sign(payload, process.env.secret_key, { expiresIn: 36000});
+        if (sign) {
+            res.status(200).json(sign)
+        } else {
+            res.status(400).json({msg: "Unauthorized"})
+        }
+       } catch (e) {
+           console.error(e.message, e.name)
+       }
+       // res.send("you dont have an account")
     }
 
     

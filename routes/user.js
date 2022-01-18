@@ -24,7 +24,7 @@ router.post("/login",verifyJWT, users.login);
 
 router.get("/login",verifyJWT, async (req, res) => {
     try {
-    const user = await Users.findById(req.user).select("-password")
+    const user = await Users.findById(req.user).select("-password");
     res.json({user})
     }catch(err) {
         console.error(err.message);
