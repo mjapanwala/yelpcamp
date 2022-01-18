@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const connection = require("../database");
 const { findByIdAndUpdate, findById } = require("../models/User");
-const {hashpassword} = require("../middleware/password");
+const {hashpassword} = require("../password");
 const {verifyJWT, signJWT} = require("../middleware/jwt");
 const bcrypt = require("bcrypt");
 const { append } = require("vary");
@@ -27,6 +27,7 @@ const jwt = require('jsonwebtoken');
                 }
             }
         const sign = await signJWT(payload); 
+        res.status(200).json(sign)
         }
         
     }
@@ -44,18 +45,24 @@ const jwt = require('jsonwebtoken');
     
   
     async function login(req, res) {
+        const rejection = res.status(401).json({msg: "Invalid Credentials"})
         const {username, password} = req.body;  
        const findUser = await User.findOne({username})
+       if (!findUser) {
+           return rejection
+       }
        if (findUser) {
-       const compare = await bcrypt.compare(password,findUser.password);
-       if (compare) {
-           res.send("Congrats login!")
-       } 
-    //    if (compare) {
-    //        signJWT(payload); 
+           const compare = await bcrypt.compare(password, findUser.password);
+           if (!compare) {
+               return rejection
+           }
+       }
+    //    const payload = {
+    //        user: decoded.id
     //    }
-    }
-    res.send("you dont have an account")
+       console.log(req.user)
+    // jwt.sign(payload, process.env.secret_key)
+    // res.send("you dont have an account")
     }
 
     
