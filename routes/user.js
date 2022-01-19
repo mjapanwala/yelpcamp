@@ -1,16 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const users = require("../controllers/User")
-const methodOverride = require("method-override")
-const {hashpassword} = require("../password");
 const {verifyJWT} = require("../middleware/jwt")
 const Users = require("../models/User");
-const { findById } = require("../models/User");
 const app = express()
 
 app.use(express.urlencoded({extended:true}))
-
-app.use(methodOverride("_method"));
 
 
 router.get("/newuser/:id", users.findSpecificUser);

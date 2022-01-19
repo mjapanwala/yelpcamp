@@ -3,14 +3,10 @@ const path = require("path");
 const app = express();
 const mongoose = require("mongoose")
 const cookieParser = require('cookie-parser');
-const userrouter = require("./routes/user");
-const hashpassword = require("./password");
+const user = require("./routes/user");
+const profile = require("./routes/profile")
 const session = require("express-session")
 const flash = require("connect-flash")
-const methodOverride = require("method-override");
-const morgan = require("morgan")
-
-app.use(methodOverride('_method'));
 app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
 app.use(flash())
@@ -22,7 +18,10 @@ app.set("views", path.join(__dirname, "views"));
 
 
 
-app.use("/user", userrouter);
+
+app.use('/api/users', user);
+app.use('/api/profile', profile);
+
 
 
 app.listen(3000,() => console.log("You are listening to port 3000"))
