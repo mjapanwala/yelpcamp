@@ -60,7 +60,7 @@ const jwt = require('jsonwebtoken');
            user: findUser.id
        }
        try {
-        const sign = await jwt.sign(payload, process.env.secret_key, { expiresIn: 36000});
+        const sign = await jwt.sign(payload, process.env.secret_key, { expiresIn: 3600000});
         if (sign) {
             res.status(200).json(sign)
         } else {
@@ -73,15 +73,6 @@ const jwt = require('jsonwebtoken');
     }
 
     
-
-
-
-
-
-
-
-
-
 
 async function findSpecificUser(req, res) {
     const {id} = req.params;
