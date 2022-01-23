@@ -30,7 +30,30 @@ const profileSchema = new mongoose.Schema({
 date: {
     type: Date,
     default: Date.now
-  }
+  },
+  experience: [
+      {
+      title: {
+          type: String,
+      },
+      company: {
+          type: String,
+      },
+      location: {
+          type: String
+      }
+    }
+  ],
+  education: [
+      {
+          elementary: {
+            type: String,
+          },
+          university: {
+            type: String,
+        }
+      }
+  ]
 })
 
 module.exports = Profile = mongoose.model('Profile', profileSchema);
