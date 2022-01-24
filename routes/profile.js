@@ -63,18 +63,35 @@ router.post('/', verifyJWT, async(req, res) => {
 
  })
 
- router.put("/education",verifyJWT, async(req,res) => {
+router.delete("/experience/:id", verifyJWT, async(req, res) => {
+    try {
+        const findProfile = await Profile.findOne({user:req.user});
+        const {id} = req.params.id;
+        const removeIndex = findProfile.experience.map((item, index) => {
+             item.id 
+           }).indexOf(id);
+        findProfile.experience.splice(removeIndex,1);
+        await findProfile.save()
+        res.send("deleted");
+    } catch (error) {
+        res.status(error.message).json(({msg: "Error"}))
+    }
+ 
+   
+})
+
+
+ router.put("/experience",verifyJWT, async(req,res) => {
     const {title, company, location} = req.body;
     const updateObject = {
         title,
         company,
         location
     }
-     const findProfile = await Profile.findOne({user: req.user});
-     if (findProfile.experience) {
-         findProfile.experience = []
-     }
-     findProfile.experience.unshift(updateObject)
+     const findProfile = await Profile.findOne({user: req.user});   
+        findProfile.experience.unshift(updateObject)
+  
+     await findProfile.save()
 
     res.json({user: findProfile})
  })
