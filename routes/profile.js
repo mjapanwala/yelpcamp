@@ -81,6 +81,9 @@ router.delete("/experience/:id", verifyJWT, async(req, res) => {
 })
 
 
+
+
+
  router.put("/experience",verifyJWT, async(req,res) => {
     const {title, company, location} = req.body;
     const updateObject = {
@@ -94,6 +97,38 @@ router.delete("/experience/:id", verifyJWT, async(req, res) => {
      await findProfile.save()
 
     res.json({user: findProfile})
+ })
+
+router.delete("/education/:id", verifyJWT, async(req, res) => {
+    const {id} = req.params.id;
+    const findProfile = await Profile.findOne(({user: req.user}))
+    if (findProfile.education) {
+        findProfile.education.map((item) => {
+            item
+        }).indexOf(id)
+    }
+    findProfile.education.splice(id, 1);
+    await findProfile.save()
+    res.send("Deleted")
+})
+
+
+ router.put("/education", verifyJWT, async(req,res) => {
+     const {elementary, university} = req.body;
+     const educationObject = {
+        elementary,
+        university
+     }
+     try {
+        const findProfile = await Profile.findOne({user: req.user});  
+        findProfile.education.unshift(educationObject);
+        await findProfile.save();
+        res.send("Added ")
+     } catch (error) {
+        res.status(500).json({msg: error.message}) 
+     }
+     
+
  })
 
  module.exports = router;

@@ -33,7 +33,7 @@ const jwt = require('jsonwebtoken');
     }
         async function signJWT(payloads) {
             try {
-                return jwt.sign(payloads, process.env.secret_key, { expiresIn: 36000});
+                return jwt.sign(payloads, process.env.secret_key, { expiresIn: 360000000});
             }
             catch(err) {
                 console.log(err)
