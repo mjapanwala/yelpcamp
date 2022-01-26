@@ -95,7 +95,6 @@ router.delete("/experience/:id", verifyJWT, async(req, res) => {
         findProfile.experience.unshift(updateObject)
   
      await findProfile.save()
-
     res.json({user: findProfile})
  })
 
