@@ -1,7 +1,18 @@
 const mongoose = require("mongoose")
 
+// const uri = mongodb+srv://<username>:<password>@yelpcamp.uonxr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+const mongoAtlasUri = "mongodb+srv://moeyshishi:moeyshishi@yelpcamp.uonxr.mongodb.net/yelpcamp?retryWrites=true&w=majority"
 
-const connection = mongoose.connect('mongodb://localhost:27017/yelp-camp')
- .catch(err => {console.log(err, "fsdf")})
+try {
+  // Connect to the MongoDB cluster
+   mongoose.connect(
+    mongoAtlasUri,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log(" Mongoose is connected")
+  );
 
- module.exports = connection;
+} catch (e) {
+  console.log("could not connect");
+}
+
+//  module.exports = connection;

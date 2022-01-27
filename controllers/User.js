@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 
 
     async function register(req, res, next) {
+        
     const {username, password, email} = req.body;
     if (username && password && email) {
         const hashedPassword = await hashpassword(password);
