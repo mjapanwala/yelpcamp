@@ -18,9 +18,6 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 
-app.get("/ghardin137", (req, res) => {
-  res.send("it worked")
-})
 
 app.use('/api/users', user);
 app.use('/api/profile', profile);
