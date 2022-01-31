@@ -1,6 +1,9 @@
-import React, { useEffect } from "react"
+import React from "react"
 
 function Landing() {
+const rows = []
+rows.push(<Mini/>)
+console.log(rows)
   return (
     <>
       <section className="landing">
@@ -20,6 +23,12 @@ function Landing() {
     </section>
     </>
   )
+}
+
+function Mini() {
+return (
+  <h1>Hello</h1>
+)
 }
 
 export default Landing
