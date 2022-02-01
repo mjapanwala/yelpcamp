@@ -1,34 +1,25 @@
-import React from "react"
+import React from "react";
 
-function Landing() {
-const rows = []
-rows.push(<Mini/>)
-console.log(rows)
+function Mini({name}) {
+  
   return (
     <>
-      <section className="landing">
-      <div className="dark-overlay">
-        <div className="landing-inner">
-          <h1 className="x-large">Developer Connector</h1>
-          <p className="lead">
-            Create a developer profile/portfolio, share posts and get help from
-            other developers
-          </p>
-          <div className="buttons">
-            <a href="register.html" className="btn btn-primary">Sign Up</a>
-            <a href="login.html" className="btn btn-light">Login</a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <h1> Hello, {name}</h1> 
+    <h2>{name}</h2>
     </>
-  )
+  );
 }
 
-function Mini() {
-return (
-  <h1>Hello</h1>
-)
+function Landing() {
+  
+  let cups = [];
+  for (let i = 0; i <= 5; i++) {
+    cups.push(<Mini key={i} guest={i} />);
+  }
+  return cups
 }
 
-export default Landing
+export { Landing, Mini };
+
+
+
