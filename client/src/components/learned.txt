@@ -1,0 +1,11 @@
+Learned how that for state array manipulation should be used with 
+.slice(), .filter(), .map()
+
+not splice, push, pop, shift
+
+nested objects are technically 2 objects
+
+to override property/value you can do spread operator
+and then key/value pair
+
+updating funciton/replace in react

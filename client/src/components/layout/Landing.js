@@ -18,6 +18,11 @@ function Landing() {
   }
   return cups
 }
+const array = [1,2,3]
+function addElements(a, b) {
+   return  [...a, b]
+}
+console.log(addElements(array, 9), array)
 
 export { Landing, Mini };
 
