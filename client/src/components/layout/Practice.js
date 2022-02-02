@@ -1,105 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const PRODUCTS = [
-  {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
-  {category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit"},
-  {category: "Fruits", price: "$2", stocked: false, name: "Passionfruit"},
-  {category: "Vegetables", price: "$2", stocked: true, name: "Spinach"},
-  {category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin"},
-  {category: "Vegetables", price: "$1", stocked: true, name: "Peas"}
-];
 
-function App() {
-  return (
-  
-   <FilterableProductTable products={PRODUCTS}/>
-
-  )
-}
-
-function FilterableProductTable({products}) {
-  const [filterText, setFilterText] = React.useState("");
-  const [inStockOnly, setInStockOnly] = React.useState(false)
-  return (
-    <div>
-    <SearchBar setFilterText={setFilterText} inStockOnly={inStockOnly} filterText={filterText}/>
-    <ProductTable setInStockOnly={setInStockOnly} inStockOnly={inStockOnly} filterText={filterText} products={products}/>
-    </div>
-  )
-}
-
-function SearchBar({filterText, setFilterText,  inStockOnly, setInStockOnly}) {
+//Instead of pushing onto an array you can use the spread operator to copy previous values 
+// then add new object onto array
+export default function List() {
+  const [name, setName] = useState('');
+  const [artists, setArtists] = useState([]);
+  let nextId = 0;
   return (
     <>
-    <form>
-    <input type="text" onChange={e => setFilterText(e.target.value)} value={filterText} placeholder="Search..."/>
-    <label>
-    <input type="checkbox"/>
-     {' '}
-     Only show products in stock 
-   
-      </label>
-   </form>
-  
+      <h1>Inspiring sculptors:</h1>
+      <input
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <button onClick={() => {
+        setName('');
+        // artists.push({
+        //   id: nextId++,
+        //   name: name,
+        // });
+        setArtists([{id: nextId++, name},...artists])
+      }}>Add</button>
+      <ul>
+        {artists.map(artist => (
+          <li key={artist.id}>{artist.name}</li>
+        ))}
+      </ul>
     </>
-  )
-}
-
-function ProductTable({products, filterText, inStockOnly}) {
-
-  const rows = []
-  let lastCategory = null;
-  
-  products.forEach((product) => {
-    if(product.category !== lastCategory) {
-    rows.push(<ProductCategoryRow category={product.category} key={product.category} />)
-    }
-  rows.push(<ProductRow product={product} key={product.name}/>)
-    lastCategory = product.category
-  })
- 
-  return (
-  <>
-     
-      <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-    
-       {rows}
-     
-        </tbody>
-    </table>
-  </>
-   )
-}
-
-function ProductCategoryRow({category}) {
-  
-  return (
-    <tr>
-    <th>{category}</th>
-    </tr>
-  )
-}
-
-function ProductRow({product}) {
- const name = product.stocked? product.name :
-  <span style={{ color: 'red' }}>
-      {product.name}
-    </span>;
-
-  return (
-    <>
-   <tr>
-     <td>{name} </td>
-     <td>{product.price}</td> 
-   </tr>
-    </>
-  )
+  );
 }
 // ReactDOM.render(<App/>, document.getElementById("app"))
