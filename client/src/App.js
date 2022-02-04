@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import  {Landing}  from "./components/layout/Landing";
 import "./App.css";
-import {Adult} from "./components/layout/Practice"
+import {Accordion} from "./components/layout/SharingStateBetweenComponent"
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Navbar />
         {/* <Route path="/" index element={<Landing />}/> */}
         {/* <Landing /> */}
-      <Adult/>
+      <Accordion/>
       </Fragment>
       {/* </Routes>
    </BrowserRouter> */}
