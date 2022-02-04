@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import  {Landing}  from "./components/layout/Landing";
 import "./App.css";
-import {List, RemoveList, MakeChange} from "./components/layout/Practice"
+import { ObjectChange} from "./components/layout/Practice"
 
 
 function App() {
@@ -14,10 +14,11 @@ function App() {
       <Fragment>
         <Navbar />
         {/* <Route path="/" index element={<Landing />}/> */}
-        <Landing />
-        <List/>
-        <RemoveList/>
-        <MakeChange/>
+        {/* <Landing /> */}
+        {/* <List/> */}
+        {/* <RemoveList/>
+        <MakeChange/> */}
+        <ObjectChange/>
       </Fragment>
       {/* </Routes>
    </BrowserRouter> */}
