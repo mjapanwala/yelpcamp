@@ -20,6 +20,7 @@ function Panel({isActive, children, onShow }) {
   
   return (
     <>
+    <h1>Going through</h1>
    {isActive ? (
       <p>{children}</p>
    ): (  
